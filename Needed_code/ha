@@ -1,0 +1,14 @@
+import os 
+import numpy as np
+from PIL import Image
+bp = r"D:\!Crossmodality_2023\new_MR_npy_regi\P011"
+p_list = os.listdir(bp)
+for i in range(len(p_list)):
+    arr = np.load(os.path.join(bp, p_list[i]))  
+    if np.all(arr==0):
+        continue
+    arr = arr.astype("float64")
+    arr = 255*(arr - np.min(arr))/(np.max(arr)-np.min(arr))
+    arr = arr.astype("uint8")
+    im = Image.fromarray(arr)
+    im.save(r"D:\!Crossmodality_2023\new_MR_npy_regi\3123121\%s.jpg" %p_list[i])
